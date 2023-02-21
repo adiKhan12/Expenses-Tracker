@@ -40,7 +40,7 @@ class ExpenseTracker:
         session.commit()
 
         session.close()
-        
+
     def delete_expense(self, id):
         session = Session()
 
@@ -49,3 +49,13 @@ class ExpenseTracker:
         session.commit()
 
         session.close()
+
+    def get_expenses_by_date_range(self, start_date_str, end_date_str):
+        session = Session()
+
+        start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date()
+        end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date()
+        expenses = session.query(Expense).filter(Expense.date.between(start_date, end_date)).all()
+        
+        session.close()
+        return expenses

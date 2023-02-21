@@ -7,8 +7,14 @@ tracker = ExpenseTracker()
 
 @app.route("/")
 def index():
-    expenses = tracker.get_expenses()
-    return render_template("index.html", expenses=expenses)
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+    if start_date and end_date:
+        expenses = tracker.get_expenses_by_date_range(start_date, end_date)
+    else:
+        expenses = tracker.get_expenses()
+
+    return render_template('index.html', expenses=expenses)
 
 @app.route("/add", methods=["GET", "POST"])
 def add():
