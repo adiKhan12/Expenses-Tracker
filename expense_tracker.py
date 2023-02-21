@@ -1,5 +1,6 @@
 from datetime import date
 from database import Session, Expense
+from datetime import datetime
 
 class ExpenseTracker:
     def add_expense(self, name, amount, date_str):
@@ -19,3 +20,32 @@ class ExpenseTracker:
         session.close()
 
         return expenses
+
+    def get_expense(self, id):
+        session = Session()
+
+        expense = session.query(Expense).get(id)
+
+        session.close()
+
+        return expense
+
+    def update_expense(self, id, name, amount, date_str):
+        session = Session()
+
+        expense = session.query(Expense).get(id)
+        expense.name = name
+        expense.amount = amount
+        expense.date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        session.commit()
+
+        session.close()
+        
+    def delete_expense(self, id):
+        session = Session()
+
+        expense = session.query(Expense).get(id)
+        session.delete(expense)
+        session.commit()
+
+        session.close()
