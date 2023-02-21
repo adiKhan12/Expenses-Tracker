@@ -47,6 +47,9 @@ python run.py
 ```
 You can then open your web browser and go to http://localhost:5000/ to view the home page, and http://localhost:5000/add to add a new expense.
 
+## Docker
+
+To run the application with Docker, follow these steps:
 
 6. Build the Docker image:
 ```
